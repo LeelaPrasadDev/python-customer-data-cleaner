@@ -1,50 +1,90 @@
 import pandas as pd
 
-# File paths
-input_file = "data/customers.csv"
-output_file = "output/cleaned_customers.csv"
-report_file = "output/summary_report.txt"
 
-# Read the CSV file
-df = pd.read_csv(input_file)
+INPUT_FILE = "data/customers.csv"
+OUTPUT_FILE = "output/cleaned_customers.csv"
+REPORT_FILE = "output/summary_report.txt"
 
-print("=== CUSTOMER DATA CLEANER ===")
-print(f"Original records: {len(df)}")
 
-# Check missing values
-missing_before = df.isnull().sum()
+def clean_customer_data(input_file=INPUT_FILE):
+    """Load and clean customer data."""
 
-# Check duplicate records
-duplicates = df.duplicated().sum()
+    df = pd.read_csv(input_file)
 
-# Remove duplicate rows
-df = df.drop_duplicates()
+    original_records = len(df)
 
-# Fill missing Age with the average age
-df["Age"] = df["Age"].fillna(df["Age"].mean())
+    # Count missing values before cleaning
+    missing_before = df.isnull().sum()
 
-# Fill missing Email with "Not Provided"
-df["Email"] = df["Email"].fillna("Not Provided")
+    # Count duplicate records
+    duplicates = df.duplicated().sum()
 
-# Save cleaned data
-df.to_csv(output_file, index=False)
+    # Remove duplicates
+    df = df.drop_duplicates()
 
-# Create summary report
-with open(report_file, "w") as report:
-    report.write("CUSTOMER DATA CLEANING REPORT\n")
-    report.write("=" * 35 + "\n\n")
-    report.write(f"Original records: {len(pd.read_csv(input_file))}\n")
-    report.write(f"Duplicate records removed: {duplicates}\n")
-    report.write(f"Final records: {len(df)}\n\n")
+    # Fill missing age values with average age
+    if "Age" in df.columns:
+        df["Age"] = df["Age"].fillna(df["Age"].mean())
 
-    report.write("Missing values before cleaning:\n")
-    for column, count in missing_before.items():
-        report.write(f"- {column}: {count}\n")
+    # Fill missing email addresses
+    if "Email" in df.columns:
+        df["Email"] = df["Email"].fillna("Not Provided")
 
-    report.write("\nCleaning completed successfully.\n")
+    return df, original_records, duplicates, missing_before
 
-print(f"Duplicates removed: {duplicates}")
-print(f"Final records: {len(df)}")
-print(f"Cleaned file: {output_file}")
-print(f"Report file: {report_file}")
-print("\nData cleaning completed successfully!")
+
+def save_cleaned_data(df, output_file=OUTPUT_FILE):
+    """Save the cleaned customer data."""
+
+    df.to_csv(output_file, index=False)
+
+
+def generate_report(
+    original_records,
+    duplicates,
+    final_records,
+    missing_before,
+    report_file=REPORT_FILE,
+):
+    """Generate a summary report."""
+
+    with open(report_file, "w") as report:
+        report.write("=== CUSTOMER DATA CLEANING REPORT ===\n\n")
+        report.write(f"Original records: {original_records}\n")
+        report.write(f"Duplicate records removed: {duplicates}\n")
+        report.write(f"Final records: {final_records}\n\n")
+
+        report.write("Missing values before cleaning:\n")
+
+        for column, count in missing_before.items():
+            report.write(f"{column}: {count}\n")
+
+        report.write("\nCleaning completed successfully.\n")
+
+
+def main():
+    """Run the customer data cleaning process."""
+
+    print("=== CUSTOMER DATA CLEANER ===")
+
+    df, original_records, duplicates, missing_before = clean_customer_data()
+
+    save_cleaned_data(df)
+
+    generate_report(
+        original_records,
+        duplicates,
+        len(df),
+        missing_before,
+    )
+
+    print(f"Original records: {original_records}")
+    print(f"Duplicates removed: {duplicates}")
+    print(f"Final records: {len(df)}")
+    print(f"Cleaned file: {OUTPUT_FILE}")
+    print(f"Report file: {REPORT_FILE}")
+    print("\nData cleaning completed successfully!")
+
+
+if __name__ == "__main__":
+    main()
