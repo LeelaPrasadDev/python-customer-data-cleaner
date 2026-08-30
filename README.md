@@ -1,55 +1,38 @@
-# Python Customer Data Cleaner
+# 🐍 Python Customer Data Cleaner
 
-A Python-based data cleaning tool that processes customer CSV files and automatically detects and fixes common data-quality issues.
+A Python and Pandas-based data cleaning tool that processes customer CSV files, detects common data-quality issues, removes duplicate records, handles missing values, and generates cleaned datasets and summary reports.
 
-## Features
+## 🚀 Features
 
-- Reads customer data from CSV
-- Detects duplicate records
-- Removes duplicate records
-- Detects missing values
-- Fills missing ages using the average age
-- Fills missing emails with "Not Provided"
-- Exports cleaned CSV data
-- Generates a data-cleaning summary report
+- 📂 Reads customer data from CSV files
+- 🔍 Detects missing values
+- 🧹 Removes duplicate records
+- 🔢 Handles missing age values using the average age
+- 📧 Handles missing email addresses
+- 📊 Generates a cleaned CSV dataset
+- 📝 Generates an automatic cleaning summary report
+- ⚡ Simple command-line execution
 
-## Technologies
+## 🛠️ Technologies
 
-- Python
+- Python 3
 - Pandas
 - CSV
 - Data Cleaning
 - Data Processing
 
-## Project Structure
+## 📁 Project Structure
 
+```text
 Python-Data-Cleaner/
+│
 ├── data/
+│   └── customers.csv
+│
 ├── output/
+│   ├── cleaned_customers.csv
+│   └── summary_report.txt
+│
 ├── main.py
 ├── README.md
 └── requirements.txt
-
-## How to Run
-
-Install dependencies:
-
-    python -m pip install -r requirements.txt
-
-Run the program:
-
-    python main.py
-
-## Example Results
-
-Original records: 10
-
-Duplicate records removed: 2
-
-Final records: 8
-
-Missing values are identified and cleaned automatically.
-
-## Author
-
-Leela Prasad Pottangi
