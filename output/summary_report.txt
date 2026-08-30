@@ -1,0 +1,14 @@
+CUSTOMER DATA CLEANING REPORT
+===================================
+
+Original records: 10
+Duplicate records removed: 2
+Final records: 8
+
+Missing values before cleaning:
+- Name: 0
+- Email: 0
+- Age: 2
+- City: 0
+
+Cleaning completed successfully.
