@@ -69,3 +69,26 @@ python-customer-data-cleaner/
 ├── README.md
 ├── main.py
 └── requirements.txt
+```
+
+## 📊 Results
+
+The data-cleaning process produced the following results:
+
+| Metric | Result |
+|---|---:|
+| Original records | 10 |
+| Duplicate records removed | 2 |
+| Final records | 8 |
+| Missing Age | Filled with average age |
+| Missing Email | Filled with `Not Provided` |
+| Automated tests | 2 passed |
+
+## 🧪 Testing
+
+The project includes automated tests using **pytest** and **GitHub Actions**.
+
+Run tests locally:
+
+```bash
+python -m pytest
