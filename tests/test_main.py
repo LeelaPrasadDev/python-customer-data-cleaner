@@ -38,26 +38,25 @@ def test_missing_values_are_cleaned(tmp_path):
     assert df["Email"].isna().sum() == 0
     assert "Not Provided" in df["Email"].values
     def test_unique_records_are_preserved(tmp_path):
-    test_file = tmp_path / "customers.csv"
+        test_file = tmp_path / "customers.csv"
 
-    data = pd.DataFrame({
-        "Name": ["John", "Alice", "Bob"],
-        "Age": [25, 30, 35],
-        "Email": [
-            "john@example.com",
-            "alice@example.com",
-            "bob@example.com"
-        ]
-    })
+        data = pd.DataFrame({
+            "Name": ["John", "Alice", "Bob"],
+            "Age": [25, 30, 35],
+            "Email": [
+                "john@example.com",
+                "alice@example.com",
+                "bob@example.com"
+            ]
+        })
 
-    data.to_csv(test_file, index=False)
+        data.to_csv(test_file, index=False)
 
-    df, original_records, duplicates, missing_before = clean_customer_data(test_file)
+        df, original_records, duplicates, missing_before = clean_customer_data(test_file)
 
-    assert original_records == 3
-    assert duplicates == 0
-    assert len(df) == 3
-
+        assert original_records == 3
+        assert duplicates == 0
+        assert len(df) == 3
 
 def test_duplicate_count_is_correct(tmp_path):
     test_file = tmp_path / "customers.csv"
