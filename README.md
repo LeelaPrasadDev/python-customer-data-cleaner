@@ -45,6 +45,16 @@ The tool takes a raw customer CSV file containing duplicate records and missing 
 
 ---
 
+## 🚀 Installation & Usage
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/LeelaPrasadDev/python-customer-data-cleaner.git
+cd python-customer-data-cleaner
+```
+---
+
 ## 📁 Project Structure
 
 ```text
