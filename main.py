@@ -1,3 +1,4 @@
+import argparse
 import pandas as pd
 
 
@@ -63,27 +64,53 @@ def generate_report(
 
 
 def main():
-    """Run the customer data cleaning process."""
+    parser = argparse.ArgumentParser(
+        description="Clean customer CSV data and generate a summary report."
+    )
+
+    parser.add_argument(
+        "input_file",
+        nargs="?",
+        default=INPUT_FILE,
+        help="Path to the input customer CSV file."
+    )
+
+    parser.add_argument(
+        "--output",
+        default=OUTPUT_FILE,
+        help="Path for the cleaned CSV file."
+    )
+
+    parser.add_argument(
+        "--report",
+        default=REPORT_FILE,
+        help="Path for the summary report."
+    )
+
+    args = parser.parse_args()
 
     print("=== CUSTOMER DATA CLEANER ===")
 
-    df, original_records, duplicates, missing_before = clean_customer_data()
+    df, original_records, duplicates, missing_before = clean_customer_data(
+        args.input_file
+    )
 
-    save_cleaned_data(df)
+    save_cleaned_data(df, args.output)
 
     generate_report(
         original_records,
         duplicates,
         len(df),
         missing_before,
+        args.report
     )
 
     print(f"Original records: {original_records}")
     print(f"Duplicates removed: {duplicates}")
     print(f"Final records: {len(df)}")
-    print(f"Cleaned file: {OUTPUT_FILE}")
-    print(f"Report file: {REPORT_FILE}")
-    print("\nData cleaning completed successfully!")
+    print(f"Cleaned file: {args.output}")
+    print(f"Report file: {args.report}")
+    print("Data cleaning completed successfully!")
 
 
 if __name__ == "__main__":
